@@ -87,7 +87,7 @@ namespace Probleme_Fundamente_Set_1
         {
             Random rnd = new Random();
             int number, n = 0;
-            number = rnd.Next(1, 1024);
+            number = rnd.Next(1, 1025);
 
             Console.WriteLine("Incearca sa ghicesti numarul calculatorului.Introduce-ti un numar intre 1 si 1024");
 
