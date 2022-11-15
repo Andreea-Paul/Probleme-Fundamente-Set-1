@@ -110,41 +110,61 @@ namespace Probleme_Fundamente_Set_1
         /// </summary>
         private static void P20()
         {
-            int a, b,b1, i ;
-            double c;
-            bool t;
-            List<int> divizori = new List<int>();
-            List<int> approved = new List<int> { 2, 5 };
+            int m, n,parte_intreaga,parte_fractionara,cifra,rest;
+            bool periodicitate;
+            List<int> resturi = new List<int>();
+            List<int> cifre = new List<int>();
             Console.WriteLine("Introduce-ti un numarator intreg");
-            a = int.Parse(Console.ReadLine());
+            m = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Introduce-ti un numitor intreg diferit de 0");
-            b = int.Parse(Console.ReadLine());
-            b1 = b;
+            n = int.Parse(Console.ReadLine());
 
-            if (b == 0)
-                Console.WriteLine("Impartirea nu poate avea loc");
+            parte_intreaga = m / n;
+            Console.WriteLine($"Rezultatul este {parte_intreaga},");
+            parte_fractionara = m % n;
 
-            c = (double)a / b;
-            
-            for (i = 2; b > 1; i++)
-                if (b % i == 0)
+            resturi.Add(parte_fractionara);
+            periodicitate = false;
+
+            do
+            {
+                cifra = parte_fractionara * 10 / n;
+                cifre.Add(cifra);
+                rest = parte_fractionara * 10 % n;
+                if (!resturi.Contains(rest))
                 {
-
-                    while (b % i == 0)
-                    {
-                        b /= i;
-                        divizori.Add(i);
-                    }
+                    resturi.Add(rest);
                 }
-            List<int>fara_repetitii_divizori = divizori.Distinct().ToList();
-            t = approved.SequenceEqual(fara_repetitii_divizori);
-            if (t == true)
-                Console.WriteLine($"Fractia este neperiodica si rezultatul impartirii este {c}");
-            if (b1 % 2 != 0 && b1 % 5 != 0)
-                Console.WriteLine($"Fractia este periodica simpla si rezultatul impartirii este {c}");
-            if (t == false && b1 % 2 != 0 || b1 % 5 != 0)
-                Console.WriteLine($"Fractia este periodica compusa si rezultatul impartirii este {c}");
+                else
+                {
+                    periodicitate = true;
+                    break;
+                }
+                parte_fractionara = rest;
+            }
+            while (rest != 0);
+
+            if (!periodicitate)
+            {
+                foreach(int cif in cifre)
+                {
+                    Console.WriteLine(cif);
+                }
+            }
+            else
+            {
+                for(int i= 0; i < resturi.Count; i++)
+                {
+                    if (resturi[i] == rest)
+                    {
+                        Console.WriteLine("(");
+                    }
+                    Console.WriteLine(cifre[i]);
+                }
+                Console.WriteLine(")");
+            }
+            
         }
         /// <summary>
         /// 19.Determinati daca un numar e format doar cu 2 cifre care se pot repeta.
@@ -221,7 +241,7 @@ namespace Probleme_Fundamente_Set_1
         /// </summary>
         private static void P16()
         {
-            int a, b, c, d, e;
+            int a, b, c, d, e, aux;
             List<int>numere=new List<int>();
             Console.WriteLine("Introduce-ti primul numar");
             a = int.Parse(Console.ReadLine());
@@ -237,11 +257,48 @@ namespace Probleme_Fundamente_Set_1
             numere.Add(d);
             Console.WriteLine("Introduce-ti al cincilea numar");
             e = int.Parse(Console.ReadLine());
-            numere.Add(e);
 
-            numere.Sort();
-            Console.WriteLine(String.Join(",", numere));
-
+            if (a > b)
+            {
+                aux = a;a = b;b = aux;
+            }
+            if (a > c)
+            {
+                aux = a;a = c;c = aux;
+            }
+            if (a > d)
+            {
+                aux=a;a = d;d = aux;
+            }
+            if(a > e)
+            {
+                aux = a;a = e;e = aux;
+            }
+            if(b > c)
+            {
+                aux = b;b = c;c = aux;
+            }
+            if (b > d)
+            {
+                aux = b;b = d;d = aux;
+            }
+            if (b > e)
+            {
+                aux = b;b = e;e = aux;
+            }
+            if (c > d)
+            {
+                aux = c;c = d;d = aux;
+            }
+            if(c > e)
+            {
+                aux = c;c = e;e = aux;
+            }
+            if(d > e)
+            {
+                aux = d;d = e;e = aux;
+            }
+            Console.WriteLine($"{a} {b} {c} {d} {e}");
            
         }
         /// <summary>
@@ -345,7 +402,6 @@ namespace Probleme_Fundamente_Set_1
             int a, uc;
             Console.WriteLine("Introduce-ti un numar intreg");
             a = Convert.ToInt32(Console.ReadLine());
-            uc = 0;
             while (a != 0)
             {
                 uc = a % 10;
@@ -472,23 +528,23 @@ namespace Probleme_Fundamente_Set_1
         /// </summary>
         private static void P5()
         {
-            int n, k, uc, c;
-            List<int> numere = new List<int>();
+            int n, k, uc, counter;
             Console.WriteLine("Introduce-ti un numar");
             n = int.Parse(Console.ReadLine());
-
-            uc = 0;
+            Console.WriteLine("Al cata cifra de la finalul numarului doresti sa extragi? Introdu valoarea ca si un numar intreg");
+            k = int.Parse(Console.ReadLine());
+            counter = 0;
             while (n != 0)
             {
                 uc = n % 10;
-                numere.Add(uc);
+                counter++;
+                if (counter == k)
+                {
+                    Console.WriteLine($"Cifra {k} de la finalul numarului este {uc}"); break ;
+                }
                 n = n / 10;
 
             }
-            Console.WriteLine("Al cata cifra de la finalul numarului doresti sa extragi? Introdu valoarea ca si un numar intreg");
-            k = int.Parse(Console.ReadLine());
-            c = numere.ElementAt(k - 1);
-            Console.WriteLine($"Cifra este {c}");
         }
         /// <summary>
         /// 4.Determinati daca un an y este an bisect. 
@@ -536,7 +592,7 @@ namespace Probleme_Fundamente_Set_1
         private static void P2()
         {
             float a, b, c, x1, x2, d;
-            string i = "i";
+            
             Console.WriteLine("Introduce-ti coeficintul a");
             a = float.Parse(Console.ReadLine());
             Console.WriteLine("Introduce-ti coeficintul b");
