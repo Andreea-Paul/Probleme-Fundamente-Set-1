@@ -220,7 +220,7 @@ namespace Probleme_Fundamente_Set_1
         /// </summary>
         private static void P17()
         {
-            int a, b;
+            int a, b,x,y;
 
             Console.WriteLine("Introduce-ti primul numar");
             a = int.Parse(Console.ReadLine());
@@ -234,7 +234,17 @@ namespace Probleme_Fundamente_Set_1
                 else 
                     b = b - a;
             }
-            Console.WriteLine($"CMMDC prin algoritmul lui Euclid este {a}");
+            x = a; y=b;
+            
+            while(x!= y)
+            {
+                if(x>y) 
+                    x = x - y;
+                else 
+                    y = y - x;
+            }
+            int cmmmc = (a * b) / x;
+            Console.WriteLine($"CMMDC prin algoritmul lui Euclid este {a} si CMMMC este {cmmmc}");
         }
         /// <summary>
         /// 16.Se dau 5 numere. Sa se afiseze in ordine crescatoare. (nu folositi tablouri)
